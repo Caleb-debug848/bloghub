@@ -61,5 +61,22 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// ─── Pages statiques ────────────────────────────────────────
+Route::get('/a-propos', function() { return view('pages.apropos'); })->name('apropos');
+Route::get('/confidentialite', function() { return view('pages.confidentialite'); })->name('confidentialite');
+Route::get('/conditions', function() { return view('pages.conditions'); })->name('conditions');
+Route::get('/contact', function() { return view('pages.contact'); })->name('contact');
+
+// ─── la route pour le formulaire contact  ───────
+
+Route::post('/contact', function(\Illuminate\Http\Request $request) {
+    $request->validate([
+        'nom'     => 'required',
+        'email'   => 'required|email',
+        'message' => 'required',
+    ]);
+    return back()->with('contact_success', true);
+})->name('contact.send');
+
 // ─── Auth (Breeze) ───────────────────────────────────────────
 require __DIR__.'/auth.php';

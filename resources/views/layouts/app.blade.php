@@ -107,10 +107,10 @@
         <div class="max-w-7xl mx-auto px-4 py-8 text-center">
             <p class="text-2xl font-bold italic text-gray-800 mb-4">BlogHub</p>
             <div class="flex justify-center gap-6 text-gray-500 text-sm mb-4 flex-wrap">
-                <a href="#" class="hover:text-blue-600">À propos</a>
-                <a href="#" class="hover:text-blue-600">Confidentialité</a>
-                <a href="#" class="hover:text-blue-600">Conditions</a>
-                <a href="#" class="hover:text-blue-600">Contact</a>
+                <a href="{{ route('apropos') }}" class="hover:text-blue-600">À propos</a>
+<a href="{{ route('confidentialite') }}" class="hover:text-blue-600">Confidentialité</a>
+<a href="{{ route('conditions') }}" class="hover:text-blue-600">Conditions</a>
+<a href="{{ route('contact') }}" class="hover:text-blue-600">Contact</a>
             </div>
             <p class="text-gray-400 text-sm">© 2026 BlogHub. Tous droits réservés.</p>
         </div>
