@@ -5,83 +5,84 @@
 @section('contenu')
 
 {{-- Hero --}}
-<div class="bg-gray-100 rounded-2xl p-16 text-center mb-12">
-    <h1 class="text-5xl font-bold text-gray-800 mb-4 leading-tight">
+<div class="bg-gray-100 rounded-2xl p-8 md:p-16 text-center mb-12">
+    <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4 leading-tight">
         L'excellence du <span class="italic text-blue-500">journalisme digital</span> à portée de clic.
     </h1>
-    <p class="text-gray-500 mb-8 text-lg max-w-xl mx-auto">
+    <p class="text-gray-500 mb-8 text-base md:text-lg max-w-xl mx-auto">
         Découvrez des perspectives uniques, des analyses approfondies et les dernières tendances du monde technologique et culturel.
     </p>
-    <form method="GET" action="{{ route('posts.index') }}" class="flex justify-center gap-2">
+    <form method="GET" action="{{ route('accueil') }}" class="flex flex-col sm:flex-row justify-center gap-2 max-w-lg mx-auto">
         <input type="text" name="search" placeholder="Rechercher un sujet, un auteur ou un article..."
             value="{{ request('search') }}"
-            class="w-96 px-5 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white">
-        <button class="bg-gradient-to-r from-blue-500 to-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90">
+            class="flex-1 px-5 py-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white text-sm">
+        <button class="bg-gradient-to-r from-blue-500 to-green-500 text-white px-6 py-3 rounded-lg font-semibold hover:opacity-90 whitespace-nowrap">
             Chercher
         </button>
     </form>
 </div>
 
-<div class="flex gap-8">
+<div class="flex flex-col lg:flex-row gap-8">
 
     {{-- Articles --}}
-    <div class="flex-1">
-        <div class="flex justify-between items-center mb-6">
+    <div class="flex-1 min-w-0">
+        <div class="flex flex-wrap justify-between items-center mb-6 gap-4">
             <h2 class="text-2xl font-bold text-gray-800">Dernières Publications</h2>
             <div class="flex gap-4 text-sm">
-    <a href="{{ route('posts.index', array_merge(request()->query(), ['sort' => 'recent'])) }}"
-        class="{{ $sort === 'recent' ? 'text-blue-600 font-semibold border-b-2 border-blue-600 pb-1' : 'text-gray-500 hover:text-blue-600' }}">
-        Plus récents
-    </a>
-    <a href="{{ route('posts.index', array_merge(request()->query(), ['sort' => 'likes'])) }}"
-        class="{{ $sort === 'likes' ? 'text-blue-600 font-semibold border-b-2 border-blue-600 pb-1' : 'text-gray-500 hover:text-blue-600' }}">
-        Populaires
-    </a>
-    <a href="{{ route('posts.index', array_merge(request()->query(), ['sort' => 'comments'])) }}"
-        class="{{ $sort === 'comments' ? 'text-blue-600 font-semibold border-b-2 border-blue-600 pb-1' : 'text-gray-500 hover:text-blue-600' }}">
-        Tendances
-    </a>
-</div>
+                <a href="{{ route('accueil', array_merge(request()->query(), ['sort' => 'recent'])) }}"
+                    class="{{ ($sort ?? 'recent') === 'recent' ? 'text-blue-600 font-semibold border-b-2 border-blue-600 pb-1' : 'text-gray-500 hover:text-blue-600' }}">
+                    Plus récents
+                </a>
+                <a href="{{ route('accueil', array_merge(request()->query(), ['sort' => 'likes'])) }}"
+                    class="{{ ($sort ?? 'recent') === 'likes' ? 'text-blue-600 font-semibold border-b-2 border-blue-600 pb-1' : 'text-gray-500 hover:text-blue-600' }}">
+                    Populaires
+                </a>
+                <a href="{{ route('accueil', array_merge(request()->query(), ['sort' => 'comments'])) }}"
+                    class="{{ ($sort ?? 'recent') === 'comments' ? 'text-blue-600 font-semibold border-b-2 border-blue-600 pb-1' : 'text-gray-500 hover:text-blue-600' }}">
+                    Tendances
+                </a>
+            </div>
+        </div>
 
         {{-- Article featured (premier) --}}
         @if($posts->count() > 0)
         @php $featured = $posts->first(); @endphp
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 mb-6 overflow-hidden hover:shadow-md transition-shadow">
-            <div class="flex gap-0">
-                <div class="w-64 shrink-0">
+            <div class="flex flex-col sm:flex-row gap-0">
+                <div class="w-full sm:w-64 shrink-0 h-48 sm:h-auto">
                     @if($featured->image)
                         <img src="{{ Str::startsWith($featured->image, 'http') ? $featured->image : Storage::url($featured->image) }}"
                             class="w-full h-full object-cover">
                     @else
-                        <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 min-h-48">
+                        <div class="w-full h-full bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center text-gray-400 text-4xl min-h-48">
                             📄
                         </div>
                     @endif
                 </div>
-                <div class="p-6 flex-1">
+                <div class="p-5 flex-1">
                     <div class="flex items-center gap-2 mb-3">
                         <span class="bg-blue-600 text-white text-xs px-3 py-1 rounded-full uppercase font-semibold">
                             {{ strtoupper($featured->category->nom ?? 'Sans catégorie') }}
                         </span>
                     </div>
-                    <h3 class="text-2xl font-bold text-gray-800 mb-2 hover:text-blue-600">
+                    <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-2 hover:text-blue-600 leading-tight">
                         <a href="{{ route('posts.show', $featured->slug) }}">{{ $featured->titre }}</a>
                     </h3>
-                    <p class="text-gray-500 mb-4">{{ Str::limit(strip_tags($featured->contenu), 150) }}</p>
-                    <div class="flex items-center justify-between">
+                    <p class="text-gray-500 mb-4 text-sm md:text-base">{{ Str::limit(strip_tags($featured->contenu), 150) }}</p>
+                    <div class="flex flex-wrap items-center justify-between gap-3">
                         <div class="flex items-center gap-2">
-                            <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-green-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                            <div class="w-7 h-7 bg-gradient-to-br from-blue-400 to-green-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
                                 {{ strtoupper(substr($featured->user->name, 0, 1)) }}
                             </div>
                             <span class="text-sm text-gray-600 font-medium">{{ $featured->user->name }}</span>
-                            <span class="text-gray-400 text-sm">• {{ $featured->created_at->format('d M Y') }}</span>
+                            <span class="text-gray-400 text-sm hidden sm:inline">• {{ $featured->created_at->format('d M Y') }}</span>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <span class="text-gray-400 text-sm flex items-center gap-1">❤️ {{ $featured->likes->count() }}</span>
-                            <span class="text-gray-400 text-sm flex items-center gap-1">💬 {{ $featured->comments->count() }}</span>
+                        <div class="flex items-center gap-3 text-sm text-gray-400">
+                            <span>❤️ {{ $featured->likes->count() }}</span>
+                            <span>💬 {{ $featured->comments->count() }}</span>
                             <a href="{{ route('posts.show', $featured->slug) }}"
-                                class="text-blue-500 font-semibold text-sm hover:underline">
-                                Continuer la lecture →
+                                class="text-blue-500 font-semibold hover:underline">
+                                Lire →
                             </a>
                         </div>
                     </div>
@@ -90,20 +91,20 @@
         </div>
 
         {{-- Autres articles --}}
-        <div class="grid grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             @foreach($posts->skip(1) as $post)
             <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
                 @if($post->image)
                     <img src="{{ Str::startsWith($post->image, 'http') ? $post->image : Storage::url($post->image) }}"
                         class="w-full h-44 object-cover">
                 @else
-                    <div class="w-full h-44 bg-gray-100 flex items-center justify-center text-gray-400 text-3xl">📄</div>
+                    <div class="w-full h-44 bg-gradient-to-br from-blue-100 to-green-100 flex items-center justify-center text-gray-400 text-3xl">📄</div>
                 @endif
                 <div class="p-5">
                     <span class="bg-green-100 text-green-600 text-xs px-2 py-1 rounded-full uppercase font-semibold">
                         {{ $post->category->nom ?? '—' }}
                     </span>
-                    <h3 class="text-lg font-bold text-gray-800 mt-2 mb-2 hover:text-blue-600">
+                    <h3 class="text-lg font-bold text-gray-800 mt-2 mb-2 hover:text-blue-600 leading-tight">
                         <a href="{{ route('posts.show', $post->slug) }}">{{ Str::limit($post->titre, 60) }}</a>
                     </h3>
                     <p class="text-gray-500 text-sm mb-4">{{ Str::limit(strip_tags($post->contenu), 80) }}</p>
@@ -112,7 +113,7 @@
                             <div class="w-6 h-6 bg-gradient-to-br from-blue-400 to-green-400 rounded-full flex items-center justify-center text-white text-xs font-bold">
                                 {{ strtoupper(substr($post->user->name, 0, 1)) }}
                             </div>
-                            <span class="text-xs text-gray-500">{{ $post->user->name }}</span>
+                            <span class="text-xs text-gray-500">{{ Str::limit($post->user->name, 15) }}</span>
                         </div>
                         <span class="text-xs text-gray-400">{{ ceil(str_word_count(strip_tags($post->contenu)) / 200) }} MIN LECTURE</span>
                     </div>
@@ -124,12 +125,12 @@
 
         {{-- Pagination --}}
         <div class="mt-8">
-            {{ $posts->links() }}
+            {{ $posts->appends(request()->query())->links() }}
         </div>
     </div>
 
     {{-- Sidebar --}}
-    <div class="w-72 shrink-0">
+    <div class="w-full lg:w-72 shrink-0">
 
         {{-- Catégories Populaires --}}
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
@@ -173,30 +174,32 @@
                 </div>
             </div>
             @endforeach
-            <a href="#" class="block text-center text-blue-500 text-sm mt-4 hover:underline">Voir tous les auteurs</a>
+            <a href="{{ route('posts.index') }}" class="block text-center text-blue-500 text-sm mt-4 hover:underline">Voir tous les articles</a>
         </div>
 
         {{-- Newsletter --}}
-<div class="bg-gradient-to-br from-blue-500 to-green-500 rounded-xl p-6">
-    <h3 class="font-bold text-white mb-2">Newsletter</h3>
-    <p class="text-white/80 text-sm mb-4">Recevez le meilleur de BlogHub directement dans votre boite mail chaque lundi matin.</p>
-
-    @if(session('newsletter_success'))
-        <div class="bg-white/20 text-white px-4 py-3 rounded-lg text-sm font-semibold text-center">
-            ✅ {{ session('newsletter_success') }}
+        <div class="bg-gradient-to-br from-blue-500 to-green-500 rounded-xl p-6">
+            <h3 class="font-bold text-white mb-2">Newsletter</h3>
+            <p class="text-white/80 text-sm mb-4">Recevez le meilleur de BlogHub directement dans votre boite mail chaque lundi matin.</p>
+            @if(session('newsletter_success'))
+                <div class="bg-white/20 text-white px-4 py-3 rounded-lg text-sm font-semibold text-center">
+                    ✅ {{ session('newsletter_success') }}
+                </div>
+            @else
+                <form method="POST" action="{{ route('newsletter.subscribe') }}">
+                    @csrf
+                    <input type="email" name="email" placeholder="votre@email.com"
+                        class="w-full px-3 py-2 rounded-lg text-gray-700 text-sm focus:outline-none mb-3"
+                        required>
+                    <button type="submit"
+                        class="w-full bg-white text-blue-600 py-2 rounded-lg font-semibold text-sm hover:bg-gray-100 transition-colors">
+                        S'abonner
+                    </button>
+                </form>
+            @endif
         </div>
-    @else
-        <form method="POST" action="{{ route('newsletter.subscribe') }}">
-            @csrf
-            <input type="email" name="email" placeholder="votre@email.com"
-                class="w-full px-3 py-2 rounded-lg text-gray-700 text-sm focus:outline-none mb-3"
-                required>
-            <button type="submit"
-                class="w-full bg-white text-blue-600 py-2 rounded-lg font-semibold text-sm hover:bg-gray-100 transition-colors">
-                S'abonner
-            </button>
-        </form>
-    @endif
+
+    </div>
 </div>
 
 @endsection
