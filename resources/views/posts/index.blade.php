@@ -169,17 +169,26 @@
         </div>
 
         {{-- Newsletter --}}
-        <div class="bg-gradient-to-br from-blue-500 to-green-500 rounded-xl p-6">
-            <h3 class="font-bold text-white mb-2">Newsletter</h3>
-            <p class="text-white/80 text-sm mb-4">Recevez le meilleur de BlogHub directement dans votre boite mail chaque lundi matin.</p>
-            <input type="email" placeholder="votre@email.com"
-                class="w-full px-3 py-2 rounded-lg text-gray-700 text-sm focus:outline-none mb-3">
-            <button class="w-full bg-white text-blue-600 py-2 rounded-lg font-semibold text-sm hover:bg-gray-100">
+<div class="bg-gradient-to-br from-blue-500 to-green-500 rounded-xl p-6">
+    <h3 class="font-bold text-white mb-2">Newsletter</h3>
+    <p class="text-white/80 text-sm mb-4">Recevez le meilleur de BlogHub directement dans votre boite mail chaque lundi matin.</p>
+
+    @if(session('newsletter_success'))
+        <div class="bg-white/20 text-white px-4 py-3 rounded-lg text-sm font-semibold text-center">
+            ✅ {{ session('newsletter_success') }}
+        </div>
+    @else
+        <form method="POST" action="{{ route('newsletter.subscribe') }}">
+            @csrf
+            <input type="email" name="email" placeholder="votre@email.com"
+                class="w-full px-3 py-2 rounded-lg text-gray-700 text-sm focus:outline-none mb-3"
+                required>
+            <button type="submit"
+                class="w-full bg-white text-blue-600 py-2 rounded-lg font-semibold text-sm hover:bg-gray-100 transition-colors">
                 S'abonner
             </button>
-        </div>
-
-    </div>
+        </form>
+    @endif
 </div>
 
 @endsection

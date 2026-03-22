@@ -46,6 +46,13 @@ Route::middleware(['auth', 'isAdmin'])->prefix('admin')->group(function () {
     Route::put('/users/{id}/role', [AdminController::class, 'changerRole'])->name('admin.users.role');
 });
 
+// ---- Newsletter (public) ───────────────────────────────────────
+
+Route::post('/newsletter', function(\Illuminate\Http\Request $request) {
+    $request->validate(['email' => 'required|email']);
+    return back()->with('newsletter_success', 'Merci ! Vous êtes bien inscrit à notre newsletter ! 🎉');
+})->name('newsletter.subscribe');
+
 // ─── Profil ─────────────────────────────────────────────────
 Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
