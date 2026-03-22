@@ -234,15 +234,33 @@ async function toggleLike(postId) {
 }
 
 function partager() {
+    const url = window.location.href;
+    const titre = document.title;
+
     if (navigator.share) {
-        navigator.share({
-            title: document.title,
-            url: window.location.href
-        }).catch(console.error);
+        navigator.share({ title: titre, url: url }).catch(console.error);
     } else {
-        navigator.clipboard.writeText(window.location.href).then(() => {
-            alert('Lien copié dans le presse-papiers !');
-        });
+        // Méthode compatible HTTP
+        const textArea = document.createElement('textarea');
+        textArea.value = url;
+        textArea.style.position = 'fixed';
+        textArea.style.opacity = '0';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+
+        try {
+            document.execCommand('copy');
+            const btn = document.querySelector('[onclick="partager()"]');
+            const original = btn.innerHTML;
+            btn.innerHTML = '🔗 Copié !';
+            setTimeout(() => { btn.innerHTML = original; }, 2000);
+        } catch (err) {
+            // Si tout échoue, affiche l'URL dans une alerte
+            prompt('Copiez ce lien :', url);
+        }
+
+        document.body.removeChild(textArea);
     }
 }
 </script>
