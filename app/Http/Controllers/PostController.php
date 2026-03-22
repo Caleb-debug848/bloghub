@@ -87,32 +87,40 @@ class PostController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'titre'       => 'required|max:255',
-            'contenu'     => 'required',
-            'category_id' => 'required|exists:categories,id',
-        ]);
+{
+    $request->validate([
+        'titre'       => 'required|max:255',
+        'contenu'     => 'required',
+        'category_id' => 'required|exists:categories,id',
+    ]);
 
-        $post = Post::create([
-            'user_id'     => auth()->id(),
-            'category_id' => $request->category_id,
-            'titre'       => $request->titre,
-            'slug'        => Str::slug($request->titre) . '-' . uniqid(),
-            'contenu'     => $request->contenu,
-            'statut'      => $request->statut ?? 'en_attente',
-            'image'       => $request->file('image')
-                                ? $request->file('image')->store('posts', 'public')
-                                : null,
-        ]);
+    // Admin publie directement, auteur passe par modération
+    $statut = auth()->user()->isAdmin() ? 'publie' : 'en_attente';
 
-        if ($request->tags) {
-            $post->tags()->sync($request->tags);
-        }
+    $post = Post::create([
+        'user_id'     => auth()->id(),
+        'category_id' => $request->category_id,
+        'titre'       => $request->titre,
+        'slug'        => Str::slug($request->titre) . '-' . uniqid(),
+        'contenu'     => $request->contenu,
+        'statut'      => $statut,
+        'image'       => $request->file('image')
+                            ? $request->file('image')->store('posts', 'public')
+                            : null,
+    ]);
 
-        return redirect()->route('dashboard')
-            ->with('success', 'Article soumis pour modération !');
+    if ($request->tags) {
+        $post->tags()->sync($request->tags);
     }
+
+    if (auth()->user()->isAdmin()) {
+        return redirect()->route('dashboard')
+            ->with('success', 'Article publié avec succès !');
+    }
+
+    return redirect()->route('dashboard')
+        ->with('success', 'Article soumis pour modération !');
+}
 
     public function edit($id)
     {
@@ -127,31 +135,33 @@ class PostController extends Controller
     }
 
     public function update(Request $request, $id)
-    {
-        $post = Post::where('id', $id)
-            ->where('user_id', auth()->id())
-            ->firstOrFail();
+{
+    $post = Post::where('id', $id)
+        ->where('user_id', auth()->id())
+        ->firstOrFail();
 
-        $request->validate([
-            'titre'       => 'required|max:255',
-            'contenu'     => 'required',
-            'category_id' => 'required|exists:categories,id',
-        ]);
+    $request->validate([
+        'titre'       => 'required|max:255',
+        'contenu'     => 'required',
+        'category_id' => 'required|exists:categories,id',
+    ]);
 
-        $post->update([
-            'titre'       => $request->titre,
-            'category_id' => $request->category_id,
-            'contenu'     => $request->contenu,
-            'statut'      => 'en_attente',
-        ]);
+    $statut = auth()->user()->isAdmin() ? 'publie' : 'en_attente';
 
-        if ($request->tags) {
-            $post->tags()->sync($request->tags);
-        }
+    $post->update([
+        'titre'       => $request->titre,
+        'category_id' => $request->category_id,
+        'contenu'     => $request->contenu,
+        'statut'      => $statut,
+    ]);
 
-        return redirect()->route('dashboard')
-            ->with('success', 'Article mis à jour !');
+    if ($request->tags) {
+        $post->tags()->sync($request->tags);
     }
+
+    return redirect()->route('dashboard')
+        ->with('success', 'Article mis à jour !');
+}
 
     public function destroy($id)
     {
