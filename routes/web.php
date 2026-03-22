@@ -10,7 +10,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 
 // ─── Routes publiques ───────────────────────────────────────
-Route::get('/', [PostController::class, 'index'])->name('accueil');
+Route::get('/', [PostController::class, 'accueil'])->name('accueil');
 Route::get('/articles', [PostController::class, 'index'])->name('posts.index');
 Route::get('/articles/{slug}', [PostController::class, 'show'])->name('posts.show');
 Route::get('/categories', [CategoryController::class, 'index'])->name('categories.index');
