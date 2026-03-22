@@ -29,11 +29,19 @@
         <div class="flex justify-between items-center mb-6">
             <h2 class="text-2xl font-bold text-gray-800">Dernières Publications</h2>
             <div class="flex gap-4 text-sm">
-                <a href="{{ route('posts.index') }}" class="text-blue-600 font-semibold border-b-2 border-blue-600 pb-1">Plus récents</a>
-                <a href="{{ route('posts.index', ['sort' => 'likes']) }}" class="text-gray-500 hover:text-blue-600">Populaires</a>
-                <a href="{{ route('posts.index', ['sort' => 'comments']) }}" class="text-gray-500 hover:text-blue-600">Tendances</a>
-            </div>
-        </div>
+    <a href="{{ route('posts.index', array_merge(request()->query(), ['sort' => 'recent'])) }}"
+        class="{{ $sort === 'recent' ? 'text-blue-600 font-semibold border-b-2 border-blue-600 pb-1' : 'text-gray-500 hover:text-blue-600' }}">
+        Plus récents
+    </a>
+    <a href="{{ route('posts.index', array_merge(request()->query(), ['sort' => 'likes'])) }}"
+        class="{{ $sort === 'likes' ? 'text-blue-600 font-semibold border-b-2 border-blue-600 pb-1' : 'text-gray-500 hover:text-blue-600' }}">
+        Populaires
+    </a>
+    <a href="{{ route('posts.index', array_merge(request()->query(), ['sort' => 'comments'])) }}"
+        class="{{ $sort === 'comments' ? 'text-blue-600 font-semibold border-b-2 border-blue-600 pb-1' : 'text-gray-500 hover:text-blue-600' }}">
+        Tendances
+    </a>
+</div>
 
         {{-- Article featured (premier) --}}
         @if($posts->count() > 0)

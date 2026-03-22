@@ -14,6 +14,7 @@ class PostController extends Controller
     public function index()
 {
     $search = request('search');
+    $sort = request('sort', 'recent');
 
     $query = Post::with(['user', 'category', 'tags', 'likes', 'comments'])
         ->where('statut', 'publie');
@@ -31,11 +32,19 @@ class PostController extends Controller
         });
     }
 
-    $posts = $query->latest()->paginate(9);
+    if ($sort === 'likes') {
+        $query->withCount('likes')->orderByDesc('likes_count');
+    } elseif ($sort === 'comments') {
+        $query->withCount('comments')->orderByDesc('comments_count');
+    } else {
+        $query->latest();
+    }
+
+    $posts = $query->paginate(9);
     $categories = Category::withCount('posts')->get();
     $tags = Tag::withCount('posts')->get();
 
-    return view('posts.index', compact('posts', 'categories', 'tags', 'search'));
+    return view('posts.index', compact('posts', 'categories', 'tags', 'search', 'sort'));
 }
 
     public function show($slug)
