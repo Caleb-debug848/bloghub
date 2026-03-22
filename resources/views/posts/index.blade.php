@@ -22,10 +22,10 @@
     </form>
 </div>
 
-<div class="flex flex-col lg:flex-row gap-8">
+<div style="display: flex; gap: 2rem; align-items: flex-start;" class="flex-container">
 
     {{-- Articles --}}
-    <div class="flex-1 min-w-0">
+    <div style="flex: 1; min-width: 0;">
         <div class="flex flex-wrap justify-between items-center mb-6 gap-4">
             <h2 class="text-2xl font-bold text-gray-800">Dernières Publications</h2>
             <div class="flex gap-4 text-sm">
@@ -130,7 +130,7 @@
     </div>
 
     {{-- Sidebar --}}
-    <div class="w-full lg:w-72 shrink-0">
+    <div style="width: 18rem; flex-shrink: 0;">
 
         {{-- Catégories Populaires --}}
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 mb-6">
