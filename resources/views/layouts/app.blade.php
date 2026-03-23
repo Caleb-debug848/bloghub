@@ -7,7 +7,7 @@
     <title>BlogHub - @yield('titre', 'Plateforme de blog')</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-gray-50 font-sans">
+<body class="bg-gray-50 font-sans overflow-x-hidden">
 
     {{-- Navbar --}}
     <nav class="bg-white shadow-sm border-b border-gray-200">

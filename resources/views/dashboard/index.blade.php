@@ -11,8 +11,7 @@
 
         {{-- Avatar --}}
         <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 text-center mb-4">
-            <div class="w-16 h-16 lg:w-20 lg:h-20 bg-gradient-to-br from-blue-400 to-green-400 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-3 overflow-hidden">
-                @if(auth()->user()->avatar)
+<div class="w-20 h-20 bg-gradient-to-br from-blue-400 to-green-400 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-3 overflow-hidden" style="min-width:80px; min-height:80px; max-width:80px; max-height:80px;">                @if(auth()->user()->avatar)
                     <img src="{{ Storage::url(auth()->user()->avatar) }}" class="w-full h-full object-cover">
                 @else
                     {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
