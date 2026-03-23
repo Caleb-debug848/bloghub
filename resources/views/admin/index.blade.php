@@ -8,35 +8,40 @@
 
     {{-- Sidebar --}}
     <div class="w-full lg:w-56 shrink-0">
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 lg:p-6">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4">
             <p class="text-xs text-gray-400 uppercase font-semibold mb-1">Espace Admin</p>
             <p class="text-sm text-gray-500 mb-4">Gérez la plateforme</p>
-            <nav class="flex flex-row lg:flex-col gap-2 overflow-x-auto pb-2 lg:pb-0">
+
+            {{-- Mobile : grille 2x2 | Desktop : liste verticale --}}
+            <nav class="grid grid-cols-2 gap-2 lg:flex lg:flex-col lg:gap-2">
                 <a href="{{ route('dashboard') }}"
-                    class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 whitespace-nowrap text-sm">
-                    📊 <span>Tableau de bord</span>
+                    class="flex flex-col lg:flex-row items-center lg:items-center gap-1 lg:gap-3 px-2 lg:px-3 py-3 lg:py-2 rounded-xl bg-gray-50 text-gray-600 hover:bg-gray-100 text-center lg:text-left transition-colors">
+                    <span class="text-2xl lg:text-base">📊</span>
+                    <span class="text-xs lg:text-sm font-medium leading-tight">Tableau de bord</span>
                 </a>
                 <a href="{{ route('posts.mes') }}"
-                    class="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-50 text-blue-600 font-semibold whitespace-nowrap text-sm">
-                    📄 <span>Mes Articles</span>
+                    class="flex flex-col lg:flex-row items-center lg:items-center gap-1 lg:gap-3 px-2 lg:px-3 py-3 lg:py-2 rounded-xl bg-blue-50 text-blue-600 font-semibold text-center lg:text-left transition-colors">
+                    <span class="text-2xl lg:text-base">📄</span>
+                    <span class="text-xs lg:text-sm leading-tight">Mes Articles</span>
                 </a>
                 <a href="{{ route('posts.create') }}"
-                    class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 whitespace-nowrap text-sm">
-                    ➕ <span>Nouvel Article</span>
+                    class="flex flex-col lg:flex-row items-center lg:items-center gap-1 lg:gap-3 px-2 lg:px-3 py-3 lg:py-2 rounded-xl bg-gray-50 text-gray-600 hover:bg-gray-100 text-center lg:text-left transition-colors">
+                    <span class="text-2xl lg:text-base">➕</span>
+                    <span class="text-xs lg:text-sm font-medium leading-tight">Nouvel Article</span>
                 </a>
                 <a href="{{ route('profile.edit') }}"
-                    class="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-gray-50 whitespace-nowrap text-sm">
-                    👤 <span>Mon Profil</span>
+                    class="flex flex-col lg:flex-row items-center lg:items-center gap-1 lg:gap-3 px-2 lg:px-3 py-3 lg:py-2 rounded-xl bg-gray-50 text-gray-600 hover:bg-gray-100 text-center lg:text-left transition-colors">
+                    <span class="text-2xl lg:text-base">👤</span>
+                    <span class="text-xs lg:text-sm font-medium leading-tight">Mon Profil</span>
                 </a>
             </nav>
         </div>
 
-        {{-- Prêt à partager --}}
-        <div class="mt-4 bg-blue-50 rounded-xl p-4 hidden lg:block">
-            <p class="text-sm font-semibold text-gray-700 mb-3">Prêt à partager ?</p>
+        {{-- Bouton publier - visible uniquement desktop --}}
+        <div class="mt-4 hidden lg:block">
             <a href="{{ route('posts.create') }}"
-                class="w-full block text-center bg-blue-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-blue-700 text-sm">
-                Publier maintenant
+                class="w-full block text-center bg-gradient-to-r from-blue-500 to-green-500 text-white px-4 py-3 rounded-lg font-semibold hover:opacity-90 text-sm">
+                ✏️ Publier maintenant
             </a>
         </div>
     </div>
@@ -45,7 +50,7 @@
     <div class="flex-1 min-w-0">
 
         {{-- Header --}}
-        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-3">
             <div>
                 <h1 class="text-2xl lg:text-3xl font-bold text-gray-800">Panneau de Modération</h1>
                 <p class="text-gray-500 text-sm">Supervisez le contenu et la communauté BlogHub</p>
@@ -59,11 +64,11 @@
                         </span>
                     @endif
                 </div>
-                <div class="text-right hidden sm:block">
+                <div class="hidden sm:block text-right">
                     <p class="font-semibold text-gray-800 text-sm">{{ auth()->user()->name }}</p>
                     <p class="text-xs text-gray-400">{{ auth()->user()->email }}</p>
                 </div>
-                <div class="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center font-bold text-gray-600">
+                <div class="w-10 h-10 bg-gradient-to-br from-blue-400 to-green-400 rounded-full flex items-center justify-center font-bold text-white text-sm">
                     {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                 </div>
             </div>
@@ -71,7 +76,7 @@
 
         {{-- Stats --}}
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-            <div class="bg-white rounded-xl border-l-4 border-blue-500 p-4 lg:p-6 flex justify-between items-center shadow-sm">
+            <div class="bg-white rounded-xl border-l-4 border-blue-500 p-5 flex justify-between items-center shadow-sm">
                 <div>
                     <p class="text-xs text-gray-400 uppercase font-semibold mb-1">Taux d'approbation</p>
                     @php
@@ -79,49 +84,77 @@
                         $publies = \App\Models\Post::where('statut', 'publie')->count();
                         $taux = $totalPosts > 0 ? round(($publies / $totalPosts) * 100, 1) : 0;
                     @endphp
-                    <p class="text-2xl lg:text-3xl font-bold text-gray-800">{{ $taux }}%</p>
+                    <p class="text-3xl font-bold text-gray-800">{{ $taux }}%</p>
                 </div>
-                <div class="w-10 h-10 lg:w-12 lg:h-12 bg-blue-100 rounded-xl flex items-center justify-center text-xl lg:text-2xl">✅</div>
+                <div class="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center text-2xl">✅</div>
             </div>
-
-            <div class="bg-white rounded-xl border-l-4 border-green-500 p-4 lg:p-6 flex justify-between items-center shadow-sm">
+            <div class="bg-white rounded-xl border-l-4 border-green-500 p-5 flex justify-between items-center shadow-sm">
                 <div>
                     <p class="text-xs text-gray-400 uppercase font-semibold mb-1">Nouveaux Auteurs</p>
-                    <p class="text-2xl lg:text-3xl font-bold text-gray-800">+{{ $users->where('role', 'auteur')->count() }}</p>
+                    <p class="text-3xl font-bold text-gray-800">+{{ $users->where('role', 'auteur')->count() }}</p>
                 </div>
-                <div class="w-10 h-10 lg:w-12 lg:h-12 bg-green-100 rounded-xl flex items-center justify-center text-xl lg:text-2xl">👥</div>
+                <div class="w-12 h-12 bg-green-100 rounded-xl flex items-center justify-center text-2xl">👥</div>
             </div>
-
-            <div class="bg-white rounded-xl border-l-4 border-red-500 p-4 lg:p-6 flex justify-between items-center shadow-sm">
+            <div class="bg-white rounded-xl border-l-4 border-red-500 p-5 flex justify-between items-center shadow-sm">
                 <div>
                     <p class="text-xs text-gray-400 uppercase font-semibold mb-1">Alertes Critiques</p>
-                    <p class="text-2xl lg:text-3xl font-bold text-gray-800">{{ str_pad($commentsSignales->count(), 2, '0', STR_PAD_LEFT) }}</p>
+                    <p class="text-3xl font-bold text-gray-800">{{ str_pad($commentsSignales->count(), 2, '0', STR_PAD_LEFT) }}</p>
                 </div>
-                <div class="w-10 h-10 lg:w-12 lg:h-12 bg-red-100 rounded-xl flex items-center justify-center text-xl lg:text-2xl">⚠️</div>
+                <div class="w-12 h-12 bg-red-100 rounded-xl flex items-center justify-center text-2xl">⚠️</div>
             </div>
         </div>
 
         {{-- Tabs --}}
         <div x-data="{ tab: 'articles' }">
 
-            <div class="flex gap-2 lg:gap-6 border-b border-gray-200 mb-6 overflow-x-auto">
-                <button @click="tab = 'articles'"
-                    :class="tab === 'articles' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500'"
-                    class="pb-3 font-semibold flex items-center gap-2 whitespace-nowrap text-sm lg:text-base">
-                    Articles en attente
-                    <span class="bg-blue-100 text-blue-600 text-xs px-2 py-0.5 rounded-full">{{ $postEnAttente->count() }}</span>
-                </button>
-                <button @click="tab = 'comments'"
-                    :class="tab === 'comments' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500'"
-                    class="pb-3 font-semibold flex items-center gap-2 whitespace-nowrap text-sm lg:text-base">
-                    Commentaires signalés
-                    <span class="bg-red-100 text-red-600 text-xs px-2 py-0.5 rounded-full">{{ $commentsSignales->count() }}</span>
-                </button>
-                <button @click="tab = 'users'"
-                    :class="tab === 'users' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500'"
-                    class="pb-3 font-semibold whitespace-nowrap text-sm lg:text-base">
-                    Gestion utilisateurs
-                </button>
+            {{-- Mobile : boutons grille | Desktop : tabs classiques --}}
+            <div class="mb-6">
+                {{-- Mobile --}}
+                <div class="grid grid-cols-3 gap-2 lg:hidden">
+                    <button @click="tab = 'articles'"
+                        :class="tab === 'articles' ? 'bg-blue-600 text-white' : 'bg-white text-gray-600 border border-gray-200'"
+                        class="py-3 px-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-colors">
+                        <span>📋</span>
+                        <span class="leading-tight text-center">Articles<br>en attente</span>
+                        <span :class="tab === 'articles' ? 'bg-white text-blue-600' : 'bg-blue-100 text-blue-600'"
+                            class="text-xs px-1.5 py-0.5 rounded-full font-bold">{{ $postEnAttente->count() }}</span>
+                    </button>
+                    <button @click="tab = 'comments'"
+                        :class="tab === 'comments' ? 'bg-blue-600 text-white' : 'bg-white text-gray-600 border border-gray-200'"
+                        class="py-3 px-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-colors">
+                        <span>💬</span>
+                        <span class="leading-tight text-center">Commen-<br>taires</span>
+                        <span :class="tab === 'comments' ? 'bg-white text-red-600' : 'bg-red-100 text-red-600'"
+                            class="text-xs px-1.5 py-0.5 rounded-full font-bold">{{ $commentsSignales->count() }}</span>
+                    </button>
+                    <button @click="tab = 'users'"
+                        :class="tab === 'users' ? 'bg-blue-600 text-white' : 'bg-white text-gray-600 border border-gray-200'"
+                        class="py-3 px-2 rounded-xl text-xs font-semibold flex flex-col items-center gap-1 transition-colors">
+                        <span>👥</span>
+                        <span class="leading-tight text-center">Gestion<br>utilisateurs</span>
+                    </button>
+                </div>
+
+                {{-- Desktop --}}
+                <div class="hidden lg:flex gap-6 border-b border-gray-200">
+                    <button @click="tab = 'articles'"
+                        :class="tab === 'articles' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500 border-b-2 border-transparent'"
+                        class="pb-3 font-semibold flex items-center gap-2 transition-colors">
+                        Articles en attente
+                        <span class="bg-blue-100 text-blue-600 text-xs px-2 py-0.5 rounded-full">{{ $postEnAttente->count() }}</span>
+                    </button>
+                    <button @click="tab = 'comments'"
+                        :class="tab === 'comments' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500 border-b-2 border-transparent'"
+                        class="pb-3 font-semibold flex items-center gap-2 transition-colors">
+                        Commentaires signalés
+                        <span class="bg-red-100 text-red-600 text-xs px-2 py-0.5 rounded-full">{{ $commentsSignales->count() }}</span>
+                    </button>
+                    <button @click="tab = 'users'"
+                        :class="tab === 'users' ? 'border-b-2 border-blue-500 text-blue-600' : 'text-gray-500 border-b-2 border-transparent'"
+                        class="pb-3 font-semibold transition-colors">
+                        Gestion utilisateurs
+                    </button>
+                </div>
             </div>
 
             {{-- Articles en attente --}}
@@ -131,23 +164,23 @@
                         <h2 class="font-bold text-gray-800">Révision des publications</h2>
                     </div>
 
-                    {{-- Version mobile - cards --}}
+                    {{-- Mobile : cards --}}
                     <div class="block lg:hidden divide-y divide-gray-100">
                         @forelse($postEnAttente as $post)
                         <div class="p-4">
                             <div class="flex items-start gap-3 mb-3">
-                                <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center shrink-0">
+                                <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center shrink-0 overflow-hidden">
                                     @if($post->image)
                                         <img src="{{ Str::startsWith($post->image, 'http') ? $post->image : Storage::url($post->image) }}"
-                                            class="w-12 h-12 object-cover rounded-lg">
+                                            class="w-full h-full object-cover">
                                     @else
-                                        📄
+                                        <span class="text-xl">📄</span>
                                     @endif
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="font-semibold text-gray-800 text-sm truncate">{{ $post->titre }}</p>
-                                    <p class="text-xs text-gray-400">{{ $post->user->name }} • {{ $post->created_at->diffForHumans() }}</p>
-                                    <span class="bg-blue-100 text-blue-600 text-xs px-2 py-0.5 rounded-full font-semibold mt-1 inline-block">
+                                    <p class="font-semibold text-gray-800 text-sm leading-tight mb-1">{{ Str::limit($post->titre, 50) }}</p>
+                                    <p class="text-xs text-gray-400 mb-1">{{ $post->user->name }} • {{ $post->created_at->diffForHumans() }}</p>
+                                    <span class="bg-blue-100 text-blue-600 text-xs px-2 py-0.5 rounded-full font-semibold">
                                         {{ $post->category->nom ?? '—' }}
                                     </span>
                                 </div>
@@ -155,25 +188,28 @@
                             <div class="flex gap-2">
                                 <form method="POST" action="{{ route('admin.posts.approuver', $post->id) }}" class="flex-1">
                                     @csrf @method('PUT')
-                                    <button class="w-full bg-green-100 text-green-600 px-3 py-2 rounded-lg text-sm font-semibold hover:bg-green-200">
+                                    <button class="w-full bg-green-100 text-green-600 py-2 rounded-lg text-sm font-semibold hover:bg-green-200">
                                         ✅ Approuver
                                     </button>
                                 </form>
                                 <form method="POST" action="{{ route('admin.posts.rejeter', $post->id) }}" class="flex-1">
                                     @csrf @method('PUT')
-                                    <button class="w-full bg-red-100 text-red-600 px-3 py-2 rounded-lg text-sm font-semibold hover:bg-red-200">
+                                    <button class="w-full bg-red-100 text-red-600 py-2 rounded-lg text-sm font-semibold hover:bg-red-200">
                                         ❌ Rejeter
                                     </button>
                                 </form>
                             </div>
                         </div>
                         @empty
-                        <div class="text-center text-gray-400 py-8">Aucun article en attente.</div>
+                        <div class="text-center text-gray-400 py-10">
+                            <p class="text-3xl mb-2">✅</p>
+                            <p>Aucun article en attente.</p>
+                        </div>
                         @endforelse
                     </div>
 
-                    {{-- Version desktop - tableau --}}
-                    <div class="hidden lg:block overflow-x-auto">
+                    {{-- Desktop : tableau --}}
+                    <div class="hidden lg:block">
                         <table class="w-full">
                             <thead class="bg-gray-50">
                                 <tr class="text-xs text-gray-400 uppercase">
@@ -189,19 +225,19 @@
                                 <tr class="border-t border-gray-100 hover:bg-gray-50">
                                     <td class="px-6 py-4">
                                         <div class="flex items-center gap-3">
-                                            <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center shrink-0">
+                                            <div class="w-12 h-12 bg-gray-100 rounded-lg flex items-center justify-center shrink-0 overflow-hidden">
                                                 @if($post->image)
                                                     <img src="{{ Str::startsWith($post->image, 'http') ? $post->image : Storage::url($post->image) }}"
-                                                        class="w-12 h-12 object-cover rounded-lg">
+                                                        class="w-full h-full object-cover">
                                                 @else
-                                                    📄
+                                                    <span>📄</span>
                                                 @endif
                                             </div>
                                             <div>
-                                                <p class="font-semibold text-gray-800">{{ Str::limit($post->titre, 45) }}</p>
+                                                <p class="font-semibold text-gray-800">{{ Str::limit($post->titre, 40) }}</p>
                                                 <p class="text-xs text-gray-400">
                                                     {{ str_word_count(strip_tags($post->contenu)) }} mots •
-                                                    Lecture {{ ceil(str_word_count(strip_tags($post->contenu)) / 200) }} min
+                                                    {{ ceil(str_word_count(strip_tags($post->contenu)) / 200) }} min
                                                 </p>
                                             </div>
                                         </div>
@@ -211,7 +247,7 @@
                                             <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-green-400 rounded-full flex items-center justify-center text-xs font-bold text-white">
                                                 {{ strtoupper(substr($post->user->name, 0, 1)) }}
                                             </div>
-                                            <span class="text-sm font-medium text-gray-700">{{ $post->user->name }}</span>
+                                            <span class="text-sm text-gray-700">{{ $post->user->name }}</span>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 text-gray-500 text-sm">{{ $post->created_at->diffForHumans() }}</td>
@@ -235,7 +271,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="5" class="text-center text-gray-400 py-8">Aucun article en attente.</td>
+                                    <td colspan="5" class="text-center text-gray-400 py-10">Aucun article en attente.</td>
                                 </tr>
                                 @endforelse
                             </tbody>
@@ -248,32 +284,42 @@
             <div x-show="tab === 'comments'" x-cloak>
                 <div class="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm">
 
-                    {{-- Mobile --}}
+                    {{-- Mobile : cards --}}
                     <div class="block lg:hidden divide-y divide-gray-100">
                         @forelse($commentsSignales as $comment)
                         <div class="p-4">
-                            <p class="font-semibold text-gray-800 text-sm mb-1">{{ $comment->nom }}</p>
-                            <p class="text-gray-500 text-sm mb-1">{{ Str::limit($comment->contenu, 80) }}</p>
-                            <p class="text-xs text-gray-400 mb-3">Article : {{ Str::limit($comment->post->titre ?? '—', 30) }}</p>
-                            <div class="flex gap-2">
+                            <div class="flex items-start gap-2 mb-1">
+                                <div class="w-8 h-8 bg-gradient-to-br from-blue-400 to-green-400 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0">
+                                    {{ strtoupper(substr($comment->nom, 0, 1)) }}
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="font-semibold text-gray-800 text-sm">{{ $comment->nom }}</p>
+                                    <p class="text-xs text-gray-400">{{ Str::limit($comment->post->titre ?? '—', 35) }}</p>
+                                </div>
+                            </div>
+                            <p class="text-gray-600 text-sm mb-3 pl-10">{{ Str::limit($comment->contenu, 80) }}</p>
+                            <div class="flex gap-2 pl-10">
                                 <form method="POST" action="{{ route('admin.comments.approuver', $comment->id) }}" class="flex-1">
                                     @csrf @method('PUT')
-                                    <button class="w-full bg-green-100 text-green-600 px-3 py-2 rounded-lg text-sm font-semibold hover:bg-green-200">✅ Approuver</button>
+                                    <button class="w-full bg-green-100 text-green-600 py-2 rounded-lg text-sm font-semibold hover:bg-green-200">✅ Approuver</button>
                                 </form>
                                 <form method="POST" action="{{ route('admin.comments.supprimer', $comment->id) }}" class="flex-1">
                                     @csrf @method('DELETE')
-                                    <button class="w-full bg-red-100 text-red-600 px-3 py-2 rounded-lg text-sm font-semibold hover:bg-red-200"
+                                    <button class="w-full bg-red-100 text-red-600 py-2 rounded-lg text-sm font-semibold hover:bg-red-200"
                                         onclick="return confirm('Supprimer ?')">🗑️ Supprimer</button>
                                 </form>
                             </div>
                         </div>
                         @empty
-                        <div class="text-center text-gray-400 py-8">Aucun commentaire signalé.</div>
+                        <div class="text-center text-gray-400 py-10">
+                            <p class="text-3xl mb-2">💬</p>
+                            <p>Aucun commentaire signalé.</p>
+                        </div>
                         @endforelse
                     </div>
 
-                    {{-- Desktop --}}
-                    <div class="hidden lg:block overflow-x-auto">
+                    {{-- Desktop : tableau --}}
+                    <div class="hidden lg:block">
                         <table class="w-full">
                             <thead class="bg-gray-50">
                                 <tr class="text-xs text-gray-400 uppercase">
@@ -286,8 +332,8 @@
                             <tbody>
                                 @forelse($commentsSignales as $comment)
                                 <tr class="border-t border-gray-100 hover:bg-gray-50">
-                                    <td class="px-6 py-4 text-gray-600">{{ Str::limit($comment->contenu, 60) }}</td>
-                                    <td class="px-6 py-4 text-gray-600">{{ $comment->nom }}</td>
+                                    <td class="px-6 py-4 text-gray-600 text-sm">{{ Str::limit($comment->contenu, 60) }}</td>
+                                    <td class="px-6 py-4 text-gray-600 text-sm">{{ $comment->nom }}</td>
                                     <td class="px-6 py-4 text-gray-400 text-sm">{{ Str::limit($comment->post->titre ?? '—', 30) }}</td>
                                     <td class="px-6 py-4">
                                         <div class="flex gap-2">
@@ -305,7 +351,7 @@
                                 </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="4" class="text-center text-gray-400 py-8">Aucun commentaire signalé.</td>
+                                    <td colspan="4" class="text-center text-gray-400 py-10">Aucun commentaire signalé.</td>
                                 </tr>
                                 @endforelse
                             </tbody>
@@ -317,51 +363,55 @@
             {{-- Gestion utilisateurs --}}
             <div x-show="tab === 'users'" x-cloak>
                 <div class="bg-white rounded-xl border border-gray-100 overflow-hidden shadow-sm">
-                    <div class="p-4 lg:p-6 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-                        <h2 class="text-xl font-bold text-gray-800">Gestion des Utilisateurs</h2>
+                    <div class="p-4 lg:p-6 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+                        <h2 class="text-lg lg:text-xl font-bold text-gray-800">Gestion des Utilisateurs</h2>
                         <div class="relative w-full sm:w-auto">
-                            <span class="absolute left-3 top-2.5 text-gray-400">🔍</span>
-                            <input type="text" placeholder="Rechercher..."
+                            <span class="absolute left-3 top-2.5 text-gray-400 text-sm">🔍</span>
+                            <input type="text" placeholder="Rechercher un utilisateur..."
                                 class="pl-8 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 w-full sm:w-56">
                         </div>
                     </div>
 
-                    {{-- Mobile --}}
+                    {{-- Mobile : cards --}}
                     <div class="block lg:hidden divide-y divide-gray-100">
                         @foreach($users as $user)
                         <div class="p-4">
                             <div class="flex items-center gap-3 mb-3">
-                                <div class="w-10 h-10 rounded-full flex items-center justify-center font-bold text-white text-sm shrink-0
+                                <div class="w-11 h-11 rounded-full flex items-center justify-center font-bold text-white text-sm shrink-0
                                     {{ $user->role === 'admin' ? 'bg-blue-500' : ($user->role === 'auteur' ? 'bg-green-500' : 'bg-gray-400') }}">
                                     {{ strtoupper(substr($user->name, 0, 2)) }}
                                 </div>
                                 <div class="flex-1 min-w-0">
-                                    <p class="font-semibold text-gray-800 text-sm truncate">{{ $user->name }}</p>
+                                    <div class="flex items-center gap-2 flex-wrap">
+                                        <p class="font-semibold text-gray-800 text-sm">{{ $user->name }}</p>
+                                        @if($user->role === 'admin')
+                                            <span class="bg-blue-600 text-white text-xs px-2 py-0.5 rounded-full font-semibold">Admin</span>
+                                        @elseif($user->role === 'auteur')
+                                            <span class="bg-green-100 text-green-600 text-xs px-2 py-0.5 rounded-full font-semibold">Auteur</span>
+                                        @else
+                                            <span class="bg-gray-100 text-gray-500 text-xs px-2 py-0.5 rounded-full font-semibold">Lecteur</span>
+                                        @endif
+                                    </div>
                                     <p class="text-gray-400 text-xs truncate">{{ $user->email }}</p>
                                 </div>
-                                @if($user->role === 'admin')
-                                    <span class="bg-blue-600 text-white text-xs px-2 py-1 rounded-full font-semibold">Admin</span>
-                                @elseif($user->role === 'auteur')
-                                    <span class="bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded-full font-semibold">Auteur</span>
-                                @else
-                                    <span class="bg-gray-100 text-gray-500 text-xs px-2 py-1 rounded-full font-semibold">Lecteur</span>
-                                @endif
                             </div>
                             <form method="POST" action="{{ route('admin.users.role', $user->id) }}" class="flex gap-2">
                                 @csrf @method('PUT')
-                                <select name="role" class="flex-1 text-sm border border-gray-200 rounded-lg px-2 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400">
+                                <select name="role" class="flex-1 text-sm border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400 bg-gray-50">
                                     <option value="lecteur" {{ $user->role === 'lecteur' ? 'selected' : '' }}>Lecteur</option>
                                     <option value="auteur" {{ $user->role === 'auteur' ? 'selected' : '' }}>Auteur</option>
                                     <option value="admin" {{ $user->role === 'admin' ? 'selected' : '' }}>Admin</option>
                                 </select>
-                                <button class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-200">✓</button>
+                                <button class="bg-blue-100 text-blue-600 px-4 py-2 rounded-lg text-sm font-semibold hover:bg-blue-200 shrink-0">
+                                    ✓ Modifier
+                                </button>
                             </form>
                         </div>
                         @endforeach
                     </div>
 
-                    {{-- Desktop --}}
-                    <div class="hidden lg:block overflow-x-auto">
+                    {{-- Desktop : tableau --}}
+                    <div class="hidden lg:block">
                         <table class="w-full">
                             <thead class="bg-gray-50">
                                 <tr class="text-xs text-gray-400 uppercase">
@@ -391,7 +441,7 @@
                                         @if($user->role === 'admin')
                                             <span class="bg-blue-600 text-white text-xs px-3 py-1 rounded-full font-semibold uppercase">Admin</span>
                                         @elseif($user->role === 'auteur')
-                                            <span class="bg-gray-200 text-gray-600 text-xs px-3 py-1 rounded-full font-semibold uppercase">Auteur</span>
+                                            <span class="bg-green-100 text-green-600 text-xs px-3 py-1 rounded-full font-semibold uppercase">Auteur</span>
                                         @else
                                             <span class="bg-gray-100 text-gray-500 text-xs px-3 py-1 rounded-full font-semibold uppercase">Lecteur</span>
                                         @endif
