@@ -90,7 +90,7 @@
         <a href="#">Conditions</a>
         <a href="#">Contact</a>
     </div>
-    <p class="text-gray-400 text-xs">© 2026 BlogHub. Tous droits réservés.</p>
+    <p class="text-gray-400 text-xs">© 2026 BlogHub — Développé avec ❤️ par Caleb Dassi.</p>
 </footer>
 
 </body>
