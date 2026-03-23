@@ -93,6 +93,7 @@ class PostController extends Controller
             ->where('slug', $slug)
             ->where('statut', 'publie')
             ->firstOrFail();
+        $post->increment('vues');
 
         return view('posts.show', compact('post'));
     }

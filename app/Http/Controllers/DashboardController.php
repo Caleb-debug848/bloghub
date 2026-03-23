@@ -15,7 +15,8 @@ class DashboardController extends Controller
 
         $totalLikes = $posts->sum(fn($p) => $p->likes->count());
         $totalComments = $posts->sum(fn($p) => $p->comments->count());
+        $totalVues = $posts->sum('vues');
 
-        return view('dashboard.index', compact('posts', 'totalLikes', 'totalComments'));
+        return view('dashboard.index', compact('posts', 'totalLikes', 'totalComments', 'totalVues'));
     }
 }

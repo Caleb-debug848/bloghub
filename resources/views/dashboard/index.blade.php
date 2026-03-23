@@ -208,7 +208,7 @@
                     <span style="color:#10b981;font-size:0.75rem;font-weight:600;">+18%</span>
                 </div>
                 <p style="font-size:0.65rem;color:#9ca3af;text-transform:uppercase;font-weight:600;letter-spacing:0.05em;margin:0 0 4px;">Vues</p>
-                <p style="font-size:1.875rem;font-weight:800;color:#111827;margin:0;">—</p>
+                <p style="font-size:1.875rem;font-weight:800;color:#111827;margin:0;">{{ $totalVues }}</p>
             </div>
         </div>
 
