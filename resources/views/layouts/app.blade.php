@@ -112,7 +112,7 @@
 <a href="{{ route('conditions') }}" class="hover:text-blue-600">Conditions</a>
 <a href="{{ route('contact') }}" class="hover:text-blue-600">Contact</a>
             </div>
-            <p class="text-gray-400 text-sm">© 2026 BlogHub. Tous droits réservés.</p>
+            <p class="text-gray-400 text-sm">© 2026 BlogHub — Développé avec ❤️ par Caleb Dassi.</p>
         </div>
     </footer>
 
