@@ -50,7 +50,7 @@
 
     {{-- Stats --}}
     <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl p-8 mb-8">
-        <h2 class="text-2xl font-bold text-white text-center mb-8">BlogHub en chiffres</h2>
+        <h2 class="text-2xl font-bold text-gray-800 text-center mb-8">BlogHub en chiffres</h2>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             <div>
                 <p class="text-4xl font-bold text-blue-400 mb-1">{{ \App\Models\Post::where('statut','publie')->count() }}+</p>
