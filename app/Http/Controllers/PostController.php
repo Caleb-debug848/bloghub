@@ -56,15 +56,33 @@ class PostController extends Controller
 
     public function accueil()
 {
-    $posts = Post::with(['user', 'category', 'tags', 'likes', 'comments'])
-        ->where('statut', 'publie')
-        ->latest()
-        ->paginate(5);
+    $search = request('search');
+    $sort = request('sort', 'recent');
 
+    $query = Post::with(['user', 'category', 'tags', 'likes', 'comments'])
+        ->where('statut', 'publie');
+
+    if ($search) {
+        $query->where(function($q) use ($search) {
+            $q->where('titre', 'ilike', "%{$search}%")
+              ->orWhere('contenu', 'ilike', "%{$search}%")
+              ->orWhereHas('user', function($q) use ($search) {
+                  $q->where('name', 'ilike', "%{$search}%");
+              });
+        });
+    }
+
+    if ($sort === 'likes') {
+        $query->withCount('likes')->orderByDesc('likes_count');
+    } elseif ($sort === 'comments') {
+        $query->withCount('comments')->orderByDesc('comments_count');
+    } else {
+        $query->latest();
+    }
+
+    $posts = $query->paginate(5);
     $categories = Category::withCount('posts')->get();
     $tags = Tag::withCount('posts')->get();
-    $sort = 'recent';
-    $search = null;
 
     return view('posts.index', compact('posts', 'categories', 'tags', 'sort', 'search'));
 }

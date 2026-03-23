@@ -7,7 +7,7 @@
     <p class="text-gray-500">Explorez les articles par thématique</p>
 </div>
 
-<div class="grid grid-cols-3 gap-6">
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
     @forelse($categories as $cat)
     <a href="{{ route('categories.show', $cat->slug) }}"
         class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow">

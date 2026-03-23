@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div class="grid grid-cols-2 gap-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
     @forelse($posts as $post)
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow">
         @if($post->image)
