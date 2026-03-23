@@ -40,13 +40,14 @@
                 @csrf
                 <div class="mb-4">
                     <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Nom complet</label>
-                    <input type="text" name="name" placeholder="Jean Dupont"
+                    <input type="text" name="name" placeholder=
+                    "Caleb Dassi"
                         value="{{ old('name') }}"
                         class="w-full px-4 py-3 bg-gray-100 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-blue-400">
                 </div>
                 <div class="mb-4">
                     <label class="block text-xs font-semibold text-gray-500 uppercase mb-2">Email</label>
-                    <input type="email" name="email" placeholder="nom@exemple.fr"
+                    <input type="email" name="email" placeholder="nom@exemple.com"
                         value="{{ old('email') }}"
                         class="w-full px-4 py-3 bg-gray-100 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-blue-400">
                 </div>
