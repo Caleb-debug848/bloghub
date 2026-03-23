@@ -5,206 +5,47 @@
 @section('contenu')
 
 <style>
-/* ===== LAYOUT PRINCIPAL ===== */
-.dash-wrapper {
-    display: flex;
-    flex-direction: row;
-    gap: 1.5rem;
-    align-items: flex-start;
+.dash-wrapper { display:flex; flex-direction:row; gap:1.5rem; align-items:flex-start; }
+.dash-sidebar { width:210px; min-width:210px; flex-shrink:0; }
+.dash-avatar { background:white; border-radius:12px; border:1px solid #f3f4f6; padding:20px; margin-bottom:12px; text-align:center; }
+.dash-avatar-circle { width:64px; height:64px; min-width:64px; min-height:64px; border-radius:50%; background:linear-gradient(135deg,#60a5fa,#34d399); display:flex; align-items:center; justify-content:center; color:white; font-size:1.4rem; font-weight:700; margin:0 auto 10px; overflow:hidden; }
+.dash-nav-box { background:white; border-radius:12px; border:1px solid #f3f4f6; padding:12px; margin-bottom:12px; }
+.dash-nav-item { display:flex; align-items:center; gap:12px; padding:10px 12px; border-radius:10px; color:#4b5563; font-size:0.875rem; text-decoration:none; margin-bottom:2px; transition:background 0.15s; }
+.dash-nav-item:hover { background:#f9fafb; }
+.dash-nav-item.active { background:#eff6ff; color:#2563eb; font-weight:600; }
+.dash-publish-btn { display:block; width:100%; text-align:center; background:linear-gradient(to right,#3b82f6,#10b981); color:white; padding:12px; border-radius:10px; font-weight:600; font-size:0.875rem; text-decoration:none; box-sizing:border-box; }
+.dash-main { flex:1; min-width:0; }
+.dash-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.5rem; flex-wrap:wrap; gap:12px; }
+.dash-stats { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:1.5rem; }
+.dash-stat-card { background:white; border-radius:12px; border:1px solid #f3f4f6; padding:16px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+.dash-stat-card.accent { border-left:4px solid #3b82f6; }
+.dash-stat-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; }
+.dash-stat-icon { width:40px; height:40px; border-radius:10px; display:flex; align-items:center; justify-content:center; }
+.dash-bottom { display:flex; gap:1.5rem; align-items:flex-start; }
+.dash-articles { flex:1; min-width:0; }
+.dash-card { background:white; border-radius:12px; border:1px solid #f3f4f6; padding:24px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+.dash-sidebar-right { width:240px; min-width:240px; flex-shrink:0; display:flex; flex-direction:column; gap:16px; }
+.dash-small-card { background:white; border-radius:12px; border:1px solid #f3f4f6; padding:20px; box-shadow:0 1px 3px rgba(0,0,0,0.04); }
+.dash-publish-mobile { display:none; }
+
+@media (max-width:1024px) {
+    .dash-wrapper { flex-direction:column; }
+    .dash-sidebar { width:100%; min-width:100%; }
+    .dash-nav-box { display:none; }
+    .dash-publish-btn { display:none !important; }
+    .dash-publish-mobile { display:block; margin-bottom:1.25rem; }
+    .dash-nav-mobile { display:grid !important; grid-template-columns:repeat(4,1fr); gap:8px; background:white; border-radius:12px; border:1px solid #f3f4f6; padding:12px; margin-bottom:12px; }
+    .dash-stats { grid-template-columns:repeat(2,1fr); }
+    .dash-bottom { flex-direction:column; }
+    .dash-sidebar-right { width:100%; min-width:100%; }
+    .dash-table { display:none !important; }
+    .dash-mobile-cards { display:block !important; }
+    .dash-avatar-circle { width:56px; height:56px; min-width:56px; min-height:56px; }
 }
-
-/* ===== SIDEBAR ===== */
-.dash-sidebar {
-    width: 210px;
-    min-width: 210px;
-    flex-shrink: 0;
-}
-
-.dash-avatar {
-    background: white;
-    border-radius: 12px;
-    border: 1px solid #f3f4f6;
-    padding: 20px;
-    margin-bottom: 12px;
-    text-align: center;
-}
-
-.dash-avatar-circle {
-    width: 64px;
-    height: 64px;
-    min-width: 64px;
-    min-height: 64px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #60a5fa, #34d399);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin: 0 auto 10px;
-    overflow: hidden;
-}
-
-.dash-nav-box {
-    background: white;
-    border-radius: 12px;
-    border: 1px solid #f3f4f6;
-    padding: 12px;
-    margin-bottom: 12px;
-}
-
-.dash-nav-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 10px 12px;
-    border-radius: 10px;
-    color: #4b5563;
-    font-size: 0.875rem;
-    text-decoration: none;
-    margin-bottom: 2px;
-    transition: background 0.15s;
-}
-
-.dash-nav-item:hover { background: #f9fafb; }
-.dash-nav-item.active { background: #eff6ff; color: #2563eb; font-weight: 600; }
-
-.dash-publish-btn {
-    display: block;
-    width: 100%;
-    text-align: center;
-    background: linear-gradient(to right, #3b82f6, #10b981);
-    color: white;
-    padding: 12px;
-    border-radius: 10px;
-    font-weight: 600;
-    font-size: 0.875rem;
-    text-decoration: none;
-    box-sizing: border-box;
-}
-
-/* ===== CONTENU PRINCIPAL ===== */
-.dash-main { flex: 1; min-width: 0; }
-
-.dash-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 1.5rem;
-    flex-wrap: wrap;
-    gap: 12px;
-}
-
-/* ===== STATS ===== */
-.dash-stats {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin-bottom: 1.5rem;
-}
-
-.dash-stat-card {
-    background: white;
-    border-radius: 12px;
-    border: 1px solid #f3f4f6;
-    padding: 16px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-}
-
-.dash-stat-card.accent { border-left: 4px solid #3b82f6; }
-
-.dash-stat-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 12px;
-}
-
-.dash-stat-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* ===== ARTICLES + SIDEBAR DROITE ===== */
-.dash-bottom {
-    display: flex;
-    gap: 1.5rem;
-    align-items: flex-start;
-}
-
-.dash-articles { flex: 1; min-width: 0; }
-
-.dash-card {
-    background: white;
-    border-radius: 12px;
-    border: 1px solid #f3f4f6;
-    padding: 24px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-}
-
-.dash-sidebar-right {
-    width: 240px;
-    min-width: 240px;
-    flex-shrink: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-}
-
-.dash-small-card {
-    background: white;
-    border-radius: 12px;
-    border: 1px solid #f3f4f6;
-    padding: 20px;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
-}
-
-/* ===== MOBILE ===== */
-@media (max-width: 1024px) {
-    .dash-wrapper { flex-direction: column; }
-    .dash-sidebar { width: 100%; min-width: 100%; }
-    .dash-nav-box { display: none; }
-    .dash-nav-mobile {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
-        background: white;
-        border-radius: 12px;
-        border: 1px solid #f3f4f6;
-        padding: 12px;
-        margin-bottom: 12px;
-    }
-    .dash-nav-mobile-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 4px;
-        padding: 10px 4px;
-        border-radius: 10px;
-        text-decoration: none;
-        color: #4b5563;
-        font-size: 0.65rem;
-        text-align: center;
-        background: #f9fafb;
-    }
-    .dash-nav-mobile-item.active { background: #eff6ff; color: #2563eb; font-weight: 600; }
-    .dash-stats { grid-template-columns: repeat(2, 1fr); }
-    .dash-bottom { flex-direction: column; }
-    .dash-sidebar-right { width: 100%; min-width: 100%; }
-    .dash-table { display: none !important; }
-    .dash-mobile-cards { display: block !important; }
-    .dash-avatar-circle { width: 56px; height: 56px; min-width: 56px; min-height: 56px; }
-}
-
-@media (min-width: 1025px) {
-    .dash-nav-mobile { display: none; }
-    .dash-mobile-cards { display: none; }
-    .dash-table { display: table !important; }
+@media (min-width:1025px) {
+    .dash-nav-mobile { display:none; }
+    .dash-mobile-cards { display:none; }
+    .dash-table { display:table !important; }
 }
 </style>
 
@@ -257,26 +98,26 @@
         </div>
 
         {{-- Nav Mobile --}}
-        <div class="dash-nav-mobile">
-            <a href="{{ route('dashboard') }}" class="dash-nav-mobile-item active">
+        <div class="dash-nav-mobile" style="display:none;">
+            <a href="{{ route('dashboard') }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border-radius:10px;text-decoration:none;color:#2563eb;font-size:0.65rem;text-align:center;background:#eff6ff;font-weight:600;">
                 <svg style="width:20px;height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                 </svg>
                 Tableau de bord
             </a>
-            <a href="{{ route('posts.mes') }}" class="dash-nav-mobile-item">
+            <a href="{{ route('posts.mes') }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border-radius:10px;text-decoration:none;color:#4b5563;font-size:0.65rem;text-align:center;background:#f9fafb;">
                 <svg style="width:20px;height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                 </svg>
                 Mes Articles
             </a>
-            <a href="{{ route('posts.create') }}" class="dash-nav-mobile-item">
+            <a href="{{ route('posts.create') }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border-radius:10px;text-decoration:none;color:#4b5563;font-size:0.65rem;text-align:center;background:#f9fafb;">
                 <svg style="width:20px;height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                 </svg>
                 Nouvel Article
             </a>
-            <a href="{{ route('profile.edit') }}" class="dash-nav-mobile-item">
+            <a href="{{ route('profile.edit') }}" style="display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px;border-radius:10px;text-decoration:none;color:#4b5563;font-size:0.65rem;text-align:center;background:#f9fafb;">
                 <svg style="width:20px;height:20px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
                 </svg>
@@ -284,10 +125,11 @@
             </a>
         </div>
 
-        {{-- Bouton publier --}}
+        {{-- Bouton publier Desktop uniquement --}}
         <a href="{{ route('posts.create') }}" class="dash-publish-btn">
             ✏️ Publier maintenant
         </a>
+
     </div>
 
     {{-- Contenu principal --}}
@@ -306,9 +148,16 @@
             </div>
         </div>
 
+        {{-- Bouton publier MOBILE - entre header et stats --}}
+        <div class="dash-publish-mobile">
+            <a href="{{ route('posts.create') }}"
+                style="display:block;text-align:center;background:linear-gradient(to right,#3b82f6,#10b981);color:white;padding:14px;border-radius:10px;font-weight:600;font-size:0.95rem;text-decoration:none;">
+                ✏️ Publier maintenant
+            </a>
+        </div>
+
         {{-- Stats --}}
         <div class="dash-stats">
-            {{-- Articles --}}
             <div class="dash-stat-card">
                 <div class="dash-stat-top">
                     <div class="dash-stat-icon" style="background:#eff6ff;">
@@ -322,7 +171,6 @@
                 <p style="font-size:1.875rem;font-weight:800;color:#111827;margin:0;">{{ $posts->count() }}</p>
             </div>
 
-            {{-- Likes --}}
             <div class="dash-stat-card">
                 <div class="dash-stat-top">
                     <div class="dash-stat-icon" style="background:#f0fdf4;">
@@ -336,7 +184,6 @@
                 <p style="font-size:1.875rem;font-weight:800;color:#111827;margin:0;">{{ $totalLikes }}</p>
             </div>
 
-            {{-- Commentaires --}}
             <div class="dash-stat-card">
                 <div class="dash-stat-top">
                     <div class="dash-stat-icon" style="background:#faf5ff;">
@@ -350,7 +197,6 @@
                 <p style="font-size:1.875rem;font-weight:800;color:#111827;margin:0;">{{ $totalComments }}</p>
             </div>
 
-            {{-- Vues --}}
             <div class="dash-stat-card accent">
                 <div class="dash-stat-top">
                     <div class="dash-stat-icon" style="background:#eff6ff;">
@@ -377,7 +223,7 @@
                         <a href="{{ route('posts.mes') }}" style="color:#3b82f6;font-size:0.875rem;text-decoration:none;">Voir tout</a>
                     </div>
 
-                    {{-- Mobile : cards --}}
+                    {{-- Mobile cards --}}
                     <div class="dash-mobile-cards" style="display:none;">
                         @forelse($posts as $post)
                         <div style="border:1px solid #f3f4f6;border-radius:10px;padding:12px;margin-bottom:10px;">
@@ -408,7 +254,7 @@
                         @endforelse
                     </div>
 
-                    {{-- Desktop : tableau --}}
+                    {{-- Desktop tableau --}}
                     <table class="dash-table" style="width:100%;border-collapse:collapse;">
                         <thead>
                             <tr style="border-bottom:1px solid #f3f4f6;">
