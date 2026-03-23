@@ -63,7 +63,6 @@
                 <div class="mb-6">
                     <div class="flex justify-between items-center mb-2">
                         <label class="text-xs font-semibold text-gray-500 uppercase">Mot de passe</label>
-                        <a href="#" class="text-blue-500 text-xs hover:underline">Mot de passe oublié ?</a>
                     </div>
                     <input type="password" name="password" placeholder="••••••••"
                         class="w-full px-4 py-3 bg-gray-100 rounded-lg border-0 focus:outline-none focus:ring-2 focus:ring-blue-400 text-sm">
